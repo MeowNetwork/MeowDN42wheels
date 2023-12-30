@@ -1,6 +1,6 @@
 # MeowDN42wheels
 
-Some tools for MiaoTony's DN42 Network, aka MeowNetwork
+Some tools for MiaoTony's DN42 Network, aka MeowNet / MeowNetwork
 
 ***喵喵又在造轮子啦！***
 
@@ -22,11 +22,11 @@ python3 find_free_ASN.py
 
 `peer_configurator.py` 是一个自动化脚本，用于在 DN42 网络中快速配置和建立对等连接（peer）。
 
-该脚本会生成必要的 WireGuard VPN 和 BIRD 路由配置，简化整个设置过程。
+只用输入对方的连接信息，该脚本就会生成必要的 WireGuard VPN 和 BIRD 路由配置文件，而后自动完成配置，并展示新建立的连接情况，从而大大简化了整个 peer 过程，同时降低了手工配置而引入的出错风险。
 
 An automated script used to quickly configure and establish peer-to-peer connections in a DN42 network.
 
-This script will generate the necessary WireGuard VPN and BIRD routing configurations and complete them, simplifying the entire setup process.
+This script will generate the necessary WireGuard VPN and BIRD routing configurations and complete them, greatly simplifying the entire peer process and reducing the risk of errors introduced by manual configuration.
 
 ## 环境要求 / Environmental requirements 
 - Linux
@@ -40,7 +40,7 @@ This script will generate the necessary WireGuard VPN and BIRD routing configura
 ```bash
 wget https://github.com/MeowNetwork/MeowDN42wheels/raw/master/peer_configurator.py
 # OR
-# curl -O https://github.com/MeowNetwork/MeowDN42wheels/raw/master/peer_configurator.py
+# curl -LO https://github.com/MeowNetwork/MeowDN42wheels/raw/master/peer_configurator.py
 ```
 
 或者
@@ -55,14 +55,14 @@ cd MeowDN42wheels
 把自己的信息配置好，下面依次是自己的 WireGuard 私钥、DN42 IPv4、DN42 IPv6、link-local IPv6   
 *（假设 `xxxxxxxxxxxxxxxxxxxxx`、`172.23.45.67`、`fd00:dead:beaf::1234`、`fe80::1234` 是你的）*
 
-Configure your own information, below are your WireGuard private key, DN42 IPv4, DN42 IPv6, and link local IPv6 in order.   
+Configure your own information, below are your WireGuard private key, DN42 IPv4, DN42 IPv6, and link local IPv6 in order.      
 *(Assuming `xxxxxxxxxxxxxxxxxxxxx`, `172.23.45.67`, `fd00:dead:beaf::1234`, `fe80::1234` are yours)*
 
 ```bash
 sed -i -e 's/REPLACE_PRIVATEKEY_HERE/xxxxxxxxxxxxxxxxxxxxx/g' -e 's/REPLACE_DN42IPV4_HERE/172.23.45.67/g' -e 's/REPLACE_DN42IPV6_HERE/fd00:dead:beaf::1234/g' -e 's/REPLACE_LINKLOCALIPV6_HERE/fe80::1234/g' peer_configurator.py
 ```
 
-在执行脚本之前，请确保您具有 root 执行权限。
+在执行脚本之前，请确保您具有 root 执行权限。   
 Ensure that you have root privileges.  
 
 ```bash
@@ -73,22 +73,22 @@ sudo python3 peer_configurator.py
 
 首先配置对方联系信息 Configure your peer's contact information
 
-- **ASNumber**: 对方的 DN42 自治系统号（AS号），可以直接输入 `424242xxxx` 或者 `AS424242xxxx`
+- **ASNumber**: 对方的 DN42 自治系统号（AS号），可以直接输入 `424242xxxx` 或者 `AS424242xxxx`   
     Your peer's DN42 autonomous system number (AS number), e.g. `424242xxxx`, `AS424242xxxx`
-- **MNT**: 对方的维护者标识
+- **MNT**: 对方的维护者标识   
     Your peer's maintainer 
-- **Website/Contact**: *（可选）* 对方的联系信息（网站/电子邮件/Telegram/etc.），便于出问题时联系对方
+- **Website/Contact**: *（可选）* 对方的联系信息（网站/电子邮件/Telegram/etc.），便于出问题时联系对方   
      *(Optional)* Contact information of your peer (website/email/Telegram/etc.), to facilitate contacting the peer in case of problems 
 
 接下来是具体的 IP 配置部分
 
-- **IPv4 Configuration**: 询问是否需要 DN42 IPv4 配置。如果需要，请输入 `y`，并根据后续提示输入 IPv4 地址，否则 `n`
+- **IPv4 Configuration**: 询问是否需要 DN42 IPv4 配置。如果需要，请输入 `y`，并根据后续提示输入 IPv4 地址，否则 `n`   
     Ask if DN42 IPv4 configuration is needed. If so, enter `y` and follow prompts to input the IPv4 address.
-    - **DN42_IPv4**: 仅当需要 IPv4 时输入。输入对方的 DN42 IPv4 地址
+    - **DN42_IPv4**: 仅当需要 IPv4 时输入。输入对方的 DN42 IPv4 地址   
         Enter only if IPv4 is needed. Input your peer's DN42 IPv4 address.
-- **Split IPv4 and IPv6 session**: 询问是否需要将 IPv4 和 IPv6 会话分开。如果需要，请输入 `y`，将为 v4 和 v6 分别建立单独的会话，且在路由传递禁用另一协议，不需要请输入 `n`
+- **Split IPv4 and IPv6 session**: 询问是否需要将 IPv4 和 IPv6 会话分开。如果需要，请输入 `y`，将为 v4 和 v6 分别建立单独的会话，且在路由传递禁用另一协议，不需要请输入 `n`   
     Ask if IPv4 and IPv6 sessions should be split. Enter `y` if required, then separate sessions will be established for v4 and v6 respectively, and the other protocol will be disabled during routing delivery.
-- **DN42_IPv6/link-local**：对方的 DN42 IPv6 或本地链路地址
+- **DN42_IPv6/link-local**：对方的 DN42 IPv6 或本地链路地址   
     Input your peer's DN42 IPv6 or link-local address.
 
 一般而言，MeowNetwork (AS4242422688) 及很多其他的 DN42 网络通常与对方使用 link-local IPv6 地址来建立 MP-BGP v4+v6 sessions，则上面 **输入两次 `n` 后使用形如 `fe80::<对方ASN后4位>` 的地址来建立 peer 即可**
@@ -97,11 +97,11 @@ Generally, MeowNetwork (AS4242422688) and many other DN42 networks typically use
 
 接下来是 **WireGuard 配置**
 
-- **PublicKey**: 输入对方的 WireGuard 公钥 
+- **PublicKey**: 输入对方的 WireGuard 公钥    
     your peer's WireGuard public key
-- **Endpoint**: 对方的地址，可以是域名或者公网 IP 地址 
+- **Endpoint**: 对方的地址，可以是域名或者公网 IP 地址    
     Your peer's hostname or public IP address
-- **ListenPort**: 对方 WireGuard 监听的端口号
+- **ListenPort**: 对方 WireGuard 监听的端口号   
     the port number on which your peer's WireGuard listens
 
 请注意，本脚本将使用 `20000 + 自己ASN后4位` 作为本机 WireGuard 监听的端口号  
