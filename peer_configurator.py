@@ -44,21 +44,21 @@ wg_config = f"""
 # {DATE}
 
 [Interface]
-PrivateKey = <REPLACE_HERE>
+PrivateKey = REPLACE_PRIVATEKEY_HERE
 ListenPort = 2{ASN[-4:]}
 """.strip()
 
 if is_IPv4_needed:
     wg_config += f"""
-PostUp = ip addr add 172.23.6.6/32 peer {DN42V4}/32 dev %i"""
+PostUp = ip addr add REPLACE_DN42IPV4_HERE/32 peer {DN42V4}/32 dev %i"""
 
 if DN42V6.startswith('fe80'):
     # link-local
     wg_config += f"""
-PostUp = ip addr add fe80::2688/64 dev %i"""
+PostUp = ip addr add REPLACE_LINKLOCALIPV6_HERE/64 dev %i"""
 else:
     wg_config += f"""
-PostUp = ip addr add fd00:feed:ca7::6/128 peer {DN42V6}/128 dev %i"""
+PostUp = ip addr add REPLACE_DN42IPV6_HERE/128 peer {DN42V6}/128 dev %i"""
 
 wg_config += f"""
 Table = off
