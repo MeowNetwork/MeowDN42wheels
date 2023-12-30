@@ -1,4 +1,5 @@
-# coding: utf-8
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 with open('aut-num.txt', 'r', encoding='utf-8') as fin:
     s = fin.read()
