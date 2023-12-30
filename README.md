@@ -4,9 +4,7 @@ Some tools for MiaoTony's DN42 Network, aka MeowNetwork
 
 ***喵喵又在造轮子啦！***
 
-# Tools
-
-## DN42 Free ASN Finder
+# DN42 Free ASN Finder
 
 `find_free_ASN.py` 用于查询空闲未被使用的 ASN，你可以自己改代码挑选你喜欢的编号。
 
@@ -20,7 +18,7 @@ python3 find_free_ASN.py
 ```
 
 
-## DN42 Peer Configurator
+# DN42 Peer Configurator
 
 `peer_configurator.py` 是一个自动化脚本，用于在 DN42 网络中快速配置和建立对等连接（peer）。
 
@@ -57,7 +55,7 @@ cd MeowDN42wheels
 把自己的信息配置好，下面依次是自己的 WireGuard 私钥、DN42 IPv4、DN42 IPv6、link-local IPv6   
 *（假设 `xxxxxxxxxxxxxxxxxxxxx`、`172.23.45.67`、`fd00:dead:beaf::1234`、`fe80::1234` 是你的）*
 
-Configure your own information, below are your WireGuard private key, DN42 IPv4, DN42 IPv6, and link local IPv6 in order   
+Configure your own information, below are your WireGuard private key, DN42 IPv4, DN42 IPv6, and link local IPv6 in order.   
 *(Assuming `xxxxxxxxxxxxxxxxxxxxx`, `172.23.45.67`, `fd00:dead:beaf::1234`, `fe80::1234` are yours)*
 
 ```bash
