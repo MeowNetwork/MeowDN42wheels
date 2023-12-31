@@ -82,8 +82,8 @@ sudo python3 peer_configurator.py
 
 接下来是具体的 IP 配置部分
 
-- **IPv4 Configuration**: 询问是否需要 DN42 IPv4 配置。如果需要，请输入 `y`，并根据后续提示输入 IPv4 地址，否则 `n`   
-    Ask if DN42 IPv4 configuration is needed. If so, enter `y` and follow prompts to input the IPv4 address.
+- **IPv4 Configuration**: 询问是否需要 DN42 IPv4 配置。如果需要，请输入 `y`，并根据后续提示输入 IPv4 地址，否则 `n`。如果支持 Extended next hop（需要 BIRD 2.0.8+ 且手动开启），那么可以输入 `n` 省略此项配置。   
+    Ask if DN42 IPv4 configuration is needed. If so, enter `y` and follow prompts to input the IPv4 address. If it supports Extended next hop (requires BIRD 2.0.8+ and manual activation), you can just enter `n` to omit this configuration.  
     - **DN42_IPv4**: 仅当需要 IPv4 时输入。输入对方的 DN42 IPv4 地址   
         Enter only if IPv4 is needed. Input your peer's DN42 IPv4 address.
 - **Split IPv4 and IPv6 session**: 询问是否需要将 IPv4 和 IPv6 会话分开。如果需要，请输入 `y`，将为 v4 和 v6 分别建立单独的会话，且在路由传递禁用另一协议，不需要请输入 `n`   
@@ -91,9 +91,9 @@ sudo python3 peer_configurator.py
 - **DN42_IPv6/link-local**：对方的 DN42 IPv6 或本地链路地址   
     Input your peer's DN42 IPv6 or link-local address.
 
-一般而言，MeowNetwork (AS4242422688) 及很多其他的 DN42 网络通常与对方使用 link-local IPv6 地址来建立 MP-BGP v4+v6 sessions，则上面 **输入两次 `n` 后使用形如 `fe80::<对方ASN后4位>` 的地址来建立 peer 即可**
+一般而言，MeowNetwork (AS4242422688) 及很多其他的 DN42 网络通常与对方使用 link-local IPv6 地址来建立 MP-BGP v4+v6 channels（只需要建立一个 IPv6 会话），则上面 **输入两次 `n` 后使用形如 `fe80::<对方ASN后4位>` 的地址来建立 peer 即可**
 
-Generally, MeowNetwork (AS4242422688) and many other DN42 networks typically use link-local IPv6 addresses to establish MP-BGP v4+v6 sessions with the peer. To establish a peer, just enter `n` twice and use an address similar to `fe80::<the last 4 bits of the peer's ASN>`.
+Generally, MeowNetwork (AS4242422688) and many other DN42 networks typically use link-local IPv6 addresses to establish MP-BGP v4+v6 channels with the peer (just need to establish an IPv6 session). To establish a peer, just enter `n` twice and use an address similar to `fe80::<the last 4 bits of the peer's ASN>`.
 
 接下来是 **WireGuard 配置**
 
@@ -104,8 +104,8 @@ Generally, MeowNetwork (AS4242422688) and many other DN42 networks typically use
 - **ListenPort**: 对方 WireGuard 监听的端口号   
     the port number on which your peer's WireGuard listens
 
-请注意，本脚本将使用 `20000 + 自己ASN后4位` 作为本机 WireGuard 监听的端口号  
-Please note that this script will use `20000 + the last 4 digits of your own ASN` as the port for local WireGuard listening 
+请注意，本脚本将使用 `20000 + 对方ASN后4位` 作为本机 WireGuard 监听的端口号  
+Please note that this script will use `20000 + the last 4 digits of your peer's ASN` as the port for local WireGuard listening 
 
 
 ### Step4: 确认配置文件并完成配置 Confirmation 
@@ -117,7 +117,7 @@ Please note that this script will use `20000 + the last 4 digits of your own ASN
 
 Preview of the generated WireGuard and BIRD configuration information will be displayed. Please carefully check if this information is correct.
 
-After confirmation (input 'y'), the script will automatically write and execute the configuration, where the startup self start has been configured. 
+After confirmation (input `y`), the script will automatically write and execute the configuration, where the startup self start has been configured. 
 
 Please ensure to use Systemd to manage WireGuard and BIRD daemons, otherwise configuration may fail. You can manually complete the final startup process.
 
