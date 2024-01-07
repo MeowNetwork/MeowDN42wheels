@@ -59,7 +59,7 @@ Configure your own information, below are your WireGuard private key, DN42 IPv4,
 *(Assuming `xxxxxxxxxxxxxxxxxxxxx`, `172.23.45.67`, `fd00:dead:beaf::1234`, `fe80::1234` are yours)*
 
 ```bash
-sed -i -e 's/REPLACE_PRIVATEKEY_HERE/xxxxxxxxxxxxxxxxxxxxx/g' -e 's/REPLACE_DN42IPV4_HERE/172.23.45.67/g' -e 's/REPLACE_DN42IPV6_HERE/fd00:dead:beaf::1234/g' -e 's/REPLACE_LINKLOCALIPV6_HERE/fe80::1234/g' peer_configurator.py
+sed -i -e 's#REPLACE_PRIVATEKEY_HERE#xxxxxxxxxxxxxxxxxxxxx#g' -e 's#REPLACE_DN42IPV4_HERE#172.23.45.67#g' -e 's#REPLACE_DN42IPV6_HERE#fd00:dead:beaf::1234#g' -e 's#REPLACE_LINKLOCALIPV6_HERE#fe80::1234#g' peer_configurator.py
 ```
 
 在执行脚本之前，请确保您具有 root 执行权限。   
