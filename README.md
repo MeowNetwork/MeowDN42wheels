@@ -71,7 +71,8 @@ sudo python3 peer_configurator.py
 
 ### Step 3: 输入配置信息 Enter configuration information 
 
-首先配置对方联系信息 Configure your peer's contact information
+首先配置对方联系信息：    
+Configure your peer's contact information:   
 
 - **ASNumber**: 对方的 DN42 自治系统号（AS号），可以直接输入 `424242xxxx` 或者 `AS424242xxxx`   
     Your peer's DN42 autonomous system number (AS number), e.g. `424242xxxx`, `AS424242xxxx`
@@ -80,22 +81,22 @@ sudo python3 peer_configurator.py
 - **Website/Contact**: *（可选）* 对方的联系信息（网站/电子邮件/Telegram/etc.），便于出问题时联系对方   
      *(Optional)* Contact information of your peer (website/email/Telegram/etc.), to facilitate contacting the peer in case of problems 
 
-接下来是具体的 IP 配置部分
+接下来是具体的 IP 配置部分：
 
-- **IPv4 Configuration**: 询问是否需要 DN42 IPv4 配置。如果需要，请输入 `y`，并根据后续提示输入 IPv4 地址，否则 `n`。如果支持 Extended next hop（需要 BIRD 2.0.8+ 且手动开启），那么可以输入 `n` 省略此项配置。   
-    Ask if DN42 IPv4 configuration is needed. If so, enter `y` and follow prompts to input the IPv4 address. If it supports Extended next hop (requires BIRD 2.0.8+ and manual activation), you can just enter `n` to omit this configuration.  
-    - **DN42_IPv4**: 仅当需要 IPv4 时输入。输入对方的 DN42 IPv4 地址   
-        Enter only if IPv4 is needed. Input your peer's DN42 IPv4 address.
+- **IPv4 Configuration**: 询问是否需要 DN42 IPv4 配置。如果需要，请输入 `y`，并根据后续提示输入 IPv4 地址，否则 `n`。如果支持 Extended Next Hop（需要 BIRD 2.0.8+ 且手动开启），那么可以输入 `n` 省略此项配置。   
+    Ask if DN42 IPv4 configuration is needed. If so, enter `y` and follow prompts to input the IPv4 address. If it supports Extended Next Hop (requires BIRD 2.0.8+ and manual activation), you can just enter `n` to omit this configuration.  
+    - **DN42_IPv4**: 仅当需要 IPv4 时输入。输入对方的 DN42 IPv4 地址，这将附加在新建立的 WireGuard 网卡上。    
+        Enter only if IPv4 is needed. Input your peer's DN42 IPv4 address, which will be attached to the newly established WireGuard device.  
 - **Split IPv4 and IPv6 session**: 询问是否需要将 IPv4 和 IPv6 会话分开。如果需要，请输入 `y`，将为 v4 和 v6 分别建立单独的会话，且在路由传递禁用另一协议，不需要请输入 `n`   
     Ask if IPv4 and IPv6 sessions should be split. Enter `y` if required, then separate sessions will be established for v4 and v6 respectively, and the other protocol will be disabled during routing delivery.
 - **DN42_IPv6/link-local**：对方的 DN42 IPv6 或本地链路地址   
     Input your peer's DN42 IPv6 or link-local address.
 
-一般而言，MeowNetwork (AS4242422688) 及很多其他的 DN42 网络通常与对方使用 link-local IPv6 地址来建立 MP-BGP v4+v6 channels（只需要建立一个 IPv6 会话），则上面 **输入两次 `n` 后使用形如 `fe80::<对方ASN后4位>` 的地址来建立 peer 即可**
+一般而言，MeowNetwork (AS4242422688) 及很多其他的 DN42 网络通常与对方使用 link-local IPv6 地址来建立 Multiprotocol-BGP ([RFC 5549](https://www.rfc-editor.org/info/rfc5549)) v4+v6 channels（只需要建立一个 IPv6 会话），并开启 Extended Next Hop，则上面 **输入两次 `n` 后使用形如 `fe80::<对方ASN后4位>` 的地址来建立 peer 即可**
 
-Generally, MeowNetwork (AS4242422688) and many other DN42 networks typically use link-local IPv6 addresses to establish MP-BGP v4+v6 channels with the peer (just need to establish an IPv6 session). To establish a peer, just enter `n` twice and use an address similar to `fe80::<the last 4 bits of the peer's ASN>`.
+Generally, MeowNetwork (AS4242422688) and many other DN42 networks typically use link-local IPv6 addresses to establish Multiprotocol-BGP ([RFC 5549](https://www.rfc-editor.org/info/rfc5549)) v4+v6 channels with the peer (just need to establish an IPv6 session) and enable Extended Next Hop. To establish a peer, just enter `n` twice and use an address similar to `fe80::<the last 4 bits of the peer's ASN>`.
 
-接下来是 **WireGuard 配置**
+接下来是 **WireGuard 配置**：
 
 - **PublicKey**: 输入对方的 WireGuard 公钥    
     your peer's WireGuard public key
