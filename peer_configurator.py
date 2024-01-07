@@ -25,10 +25,10 @@ if is_IPv4_needed == 'y' or is_IPv4_needed == 'Y':
         is_split_v4v6_session = True
     else:
         is_split_v4v6_session = False
-    DN42V4 = input('DN42_IPv4: ').strip()
+    DN42V4 = input('DN42_IPv4: ').strip().split('/')[0]  # remove subnet mask
 else:
     is_IPv4_needed = False
-DN42V6 = input('DN42_IPv6/link-local: ').strip()
+DN42V6 = input('DN42_IPv6/link-local: ').strip().split('/')[0]  # remove subnet mask
 print()
 
 print("====== WireGuard Config =====")
