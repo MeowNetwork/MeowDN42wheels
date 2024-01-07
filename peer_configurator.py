@@ -95,7 +95,7 @@ protocol bgp dn42_{ASN}_v4 from dnpeers {{
         export none;
     }};
 }}
-"""
+""".strip()
 else:
     bird_config = f"""
 # /etc/bird/peers/AS{ASN}.conf
@@ -125,7 +125,7 @@ while True:
     elif choice == 'n' or choice == 'N':
         exit(1)
 
-print("\n##### Write wireguard config...")
+print("\n##### Write WireGuard config...")
 with open(f"/etc/wireguard/wg_{ASN}.conf", 'w', encoding='utf-8') as f_wg:
     f_wg.write(wg_config)
 
@@ -140,7 +140,7 @@ os.system(f"systemctl enable wg-quick@wg_{ASN}.service && service wg-quick@wg_{A
 
 print("\n##### Reconfigure BIRD...")
 os.system("birdc c")
-print('====================================================')
+print('====================================================\n')
 
 time.sleep(5)
 os.system(f"wg show wg_{ASN}")
