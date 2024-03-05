@@ -147,10 +147,13 @@ os.system("birdc c")
 print('====================================================\n')
 
 time.sleep(5)
+print(f'-----> wg show wg_{ASN}')
 os.system(f"wg show wg_{ASN}")
 print('----------------------------------------------------')
+print(f'-----> birdc s p all dn42_{ASN}_v6')
 os.system(f"birdc s p all dn42_{ASN}_v6")
 if is_split_v4v6_session:
+    print(f'-----> birdc s p all dn42_{ASN}_v4')
     os.system(f"birdc s p all dn42_{ASN}_v4")
 
 print("\n##### Everything is OK!")
