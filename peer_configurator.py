@@ -31,7 +31,8 @@ else:
 DN42V6 = input('DN42_IPv6/link-local: ').strip().split('/')[0]  # remove subnet mask
 print()
 
-print("====== WireGuard Config =====")
+print("""====== WireGuard Config =====
+Leave `Endpoint` and `ListenPort` blank if the remote side does not provide a public network address.""")
 PublicKey = input('PublicKey: ').strip()
 Endpoint = input('Endpoint: ').strip()
 ListenPort = input('ListenPort: ').strip()
@@ -64,8 +65,11 @@ wg_config += f"""
 Table = off
 
 [Peer]
-PublicKey = {PublicKey}
-Endpoint = {Endpoint}:{ListenPort}
+PublicKey = {PublicKey}"""
+if Endpoint and ListenPort:
+    wg_config += f"""
+Endpoint = {Endpoint}:{ListenPort}"""
+wg_config +="""
 AllowedIPs = 10.0.0.0/8, 172.20.0.0/14, 172.31.0.0/16, fd00::/8, fe80::/64
 """
 
