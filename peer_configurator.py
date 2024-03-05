@@ -10,6 +10,7 @@ DN42 对等连接配置助手
 
 import os
 import time
+import sys
 
 ASN = input('ASNumber: ').strip().replace('AS', '').replace('as', '')
 MNT = input('MNT: ').strip()
@@ -127,7 +128,7 @@ while True:
     if choice == 'y' or choice == 'Y':
         break
     elif choice == 'n' or choice == 'N':
-        exit(1)
+        sys.exit(1)
 
 print("\n##### Write WireGuard config...")
 with open(f"/etc/wireguard/wg_{ASN}.conf", 'w', encoding='utf-8') as f_wg:
