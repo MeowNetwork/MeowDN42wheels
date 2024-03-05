@@ -105,8 +105,11 @@ Generally, MeowNetwork (AS4242422688) and many other DN42 networks typically use
 - **ListenPort**: 对方 WireGuard 监听的端口号   
     the port number on which your peer's WireGuard listens
 
+如果对端未提供公网地址，将 `Endpoint` 和 `ListenPort` 留空即可。   
+If your peer does not provide a public address, just leave `Endpoint` and `ListenPort` blank. 
+
 请注意，本脚本将使用 `20000 + 对方ASN后4位` 作为本机 WireGuard 监听的端口号  
-Please note that this script will use `20000 + the last 4 digits of your peer's ASN` as the port for local WireGuard listening 
+Please note that this script will use `20000 + the last 4 digits of your peer's ASN` as the port for local WireGuard listening. 
 
 
 ### Step4: 确认配置文件并完成配置 Confirmation 
