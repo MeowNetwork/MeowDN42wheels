@@ -149,4 +149,4 @@ License:
 最终解释权归本项目开发者所有。  
 The final interpretation right belongs to the developer of the project.  
 
-Copyright © 2023-2025 [MiaoTony](https://github.com/miaotony).  
+Copyright © 2023-2026 [MiaoTony](https://github.com/miaotony).  
